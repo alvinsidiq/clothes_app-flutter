@@ -1,4 +1,6 @@
+import 'package:get/get.dart'; // Impor GetX
 import 'package:flutter/material.dart';
+import 'sign_up_screen.dart'; // Pastikan SignUpScreen diimpor
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,7 +16,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      // Jika validasi berhasil
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Login Successful')),
       );
@@ -129,7 +130,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           TextButton(
                             onPressed: () {
-                              // Navigasi ke halaman pendaftaran
+                              // Navigasi ke halaman SignUp menggunakan GetX
+                              Get.to(() => const SignUpScreen());
                             },
                             child: const Text(
                               "Sign up here",
@@ -159,6 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextButton(
                             onPressed: () {
                               // Aksi ketika admin klik
+                              // (Jika Anda ingin menggunakan GetX, bisa diupdate sesuai kebutuhan)
                             },
                             child: const Text(
                               'Click here',
