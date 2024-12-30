@@ -1,23 +1,25 @@
 import 'package:get/get.dart'; // Impor GetX
 import 'package:flutter/material.dart';
-import 'sign_up_screen.dart'; // Pastikan SignUpScreen diimpor
+import 'login_screen.dart'; // Pastikan LoginScreen diimpor
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
+      // Jika validasi berhasil
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Login Successful')),
+        const SnackBar(content: Text('Sign Up Successful')),
       );
     }
   }
@@ -25,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,  // Tema latar belakang hitam
+      backgroundColor: Colors.black, // Tema latar belakang hitam
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(
@@ -38,16 +40,38 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: MediaQuery.of(context).size.width,
                   height: 200,
                   child: Image.asset(
-                    'images/login.png',
+                    'images/signup.jpg', // Pastikan path gambar sudah benar
                     fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(height: 16), // Jarak antar elemen
-                // Form login
+                // Form sign up
                 Form(
                   key: _formKey,
                   child: Column(
                     children: [
+                      // Field nama
+                      TextFormField(
+                        controller: nameController,
+                        style: const TextStyle(color: Colors.white),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey[800],
+                          hintText: 'Name',
+                          hintStyle: const TextStyle(color: Colors.white54),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16), // Jarak antar elemen
                       // Field email
                       TextFormField(
                         controller: emailController,
@@ -93,14 +117,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 30), // Jarak antar elemen
-                      // Tombol login (warna hijau)
+                      // Tombol sign up (warna hijau)
                       Material(
-                        color: Colors.green,  // Warna tombol hijau
+                        color: Colors.green, // Warna tombol hijau
                         borderRadius: BorderRadius.circular(10),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(10),
                           onTap: _submitForm,
-                          splashColor: Colors.green[700],  // Efek splash hijau
+                          splashColor: Colors.green[700], // Efek splash hijau
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                               vertical: 15,
@@ -109,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             alignment: Alignment.center,
                             width: double.infinity,
                             child: const Text(
-                              'Login',
+                              'Sign Up',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
@@ -120,21 +144,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 16), // Jarak antar elemen
-                      // Teks tambahan: Don't have an account?
+                      // Teks tambahan: Already have an account?
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            "Don't have an account?",
+                            "Already have an account?",
                             style: TextStyle(color: Colors.white),
                           ),
                           TextButton(
                             onPressed: () {
-                              // Navigasi ke halaman SignUp menggunakan GetX
-                              Get.to(() => const SignUpScreen());
+                              // Navigasi ke halaman Login menggunakan GetX
+                              Get.to(() => const LoginScreen());
                             },
                             child: const Text(
-                              "Sign up here",
+                              "Login here",
                               style: TextStyle(color: Colors.green), // Tombol hijau
                             ),
                           ),
@@ -150,26 +174,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 16), // Jarak antar elemen
-                      // Teks dan tombol untuk admin (warna hijau)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Are you an admin? ',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              // Aksi ketika admin klik
-                              // (Jika Anda ingin menggunakan GetX, bisa diupdate sesuai kebutuhan)
-                            },
-                            child: const Text(
-                              'Click here',
-                              style: TextStyle(color: Colors.green), // Tombol hijau
-                            ),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 ),
