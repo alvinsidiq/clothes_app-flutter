@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'users/authentication/login_screen.dart'; // Pastikan path sudah benar
-import 'package:get/get.dart';
-
+import 'users/authentication/login_screen.dart';
 void main() {
-  WidgetsFlutterBinding.ensureInitialized(); // Inisialisasi widget binding
-  runApp(const MyApp());
+  runApp(const MaterialApp(
+    home: LoginScreen(),
+    debugShowCheckedModeBanner: false,
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -12,15 +12,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp( // Menggunakan GetMaterialApp untuk GetX
+    return MaterialApp(
+      title: 'Clothes Store App',
       theme: ThemeData(
-        primaryColor: Colors.deepPurple,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginScreen(), // Halaman utama adalah LoginScreen
-      debugShowCheckedModeBanner: false, // Menghapus debug banner
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Clothes Store App'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: const Center(
+        child: Text(
+          'Selamat Datang di Clothes Store App',
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
     );
   }
 }
